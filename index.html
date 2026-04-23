@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Loan Request</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>💰 Loan Request System</h2>
+
+<input id="name" placeholder="Full Name"><br><br>
+<input id="phone" placeholder="Phone Number"><br><br>
+<input id="amount" type="number" placeholder="Amount (MK)"><br><br>
+<input id="duration" type="number" placeholder="Weeks"><br><br>
+<input id="date" type="date"><br><br>
+
+<button onclick="calculate()">Check Loan</button>
+
+<p id="result"></p>
+
+<button onclick="send()">Submit Request</button>
+
+<p class="terms">
+By submitting, you agree to repay with interest on time.
+</p>
+
+<script src="script.js"></script>
+
+</body>
+</html>
