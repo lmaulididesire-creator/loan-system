@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="login">
+  <h2>🔐 Admin Login</h2>
+  <input type="password" id="pass" placeholder="Password"><br><br>
+  <button onclick="login()">Login</button>
+</div>
+
+<div id="dashboard" style="display:none;">
+  <h2>📊 Dashboard</h2>
+  <h3 id="summary"></h3>
+  <div id="data"></div>
+</div>
+
+<script>
+function login() {
+  if (document.getElementById("pass").value === "Desire2026") {
+    document.getElementById("login").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+    loadData();
+  } else alert("Wrong password");
+}
+
+function loadData() {
+  fetch("https://script.google.com/macros/s/AKfycbxElR2wEBzp7Bbsta11N2pYI6LRFhvqZ-q1uxK7oBlhfxvpX01yujk7V9CefTjmcVybYA/exec")
+  .then(res => res.json())
+  .then(data => {
+    let totalGiven = 0;
+    let totalExpected = 0;
+    let container = document.getElementById("data");
+
+    data.slice(1).forEach((row, i) => {
+      totalGiven += Number(row[2]);
+      totalExpected += Number(row[4]);
+
+      let overdue = (row[6] === "Pending" && new Date() > new Date(row[5]));
+
+      let card = document.createElement("div");
+      card.className = "card";
+      if (overdue) card.style.border = "2px solid red";
+
+      card.innerHTML = `
+        <p><b>${row[0]}</b></p>
+        <p>${row[1]}</p>
+        <p>MK ${row[2]} → MK ${row[4]}</p>
+        <p>${row[6]}</p>
+        ${row[6] === "Pending" ? `<button onclick="pay(${i+2})">Mark Paid</button>` : ""}
+      `;
+
+      container.appendChild(card);
+    });
+
+    document.getElementById("summary").innerText =
+      "Given: MK " + totalGiven +
+      " | Expected: MK " + totalExpected +
+      " | Profit: MK " + (totalExpected - totalGiven);
+  });
+}
+
+function pay(row) {
+  fetch("https://script.google.com/macros/s/AKfycbxElR2wEBzp7Bbsta11N2pYI6LRFhvqZ-q1uxK7oBlhfxvpX01yujk7V9CefTjmcVybYA/exec", {
+    method: "POST",
+    body: new URLSearchParams({ action: "pay", row: row })
+  }).then(() => location.reload());
+}
+</script>
+
+</body>
+</html>

@@ -6,14 +6,18 @@ function calculate() {
   let duration = parseInt(document.getElementById("duration").value);
 
   if (!name || !amount || !duration) {
-    alert("Fill all fields first");
+    alert("Please fill all fields");
     return;
   }
 
   let rate;
-  if (duration <= 1) rate = 0.20;
-  else if (duration <= 4) rate = 0.25;
-  else rate = 0.30;
+  if (duration <= 1) {
+    rate = 0.20;
+  } else if (duration <= 4) {
+    rate = 0.25;
+  } else {
+    rate = 0.30;
+  }
 
   total = amount + (amount * rate);
 
@@ -23,15 +27,8 @@ function calculate() {
 
 function send() {
   let name = document.getElementById("name").value;
-  let phone = document.getElementById("phone").value;
   let amount = document.getElementById("amount").value;
   let duration = document.getElementById("duration").value;
-  let date = document.getElementById("date").value;
-
-  if (!name || !phone || !amount || !duration || !date) {
-    alert("Fill all fields");
-    return;
-  }
 
   if (!total) {
     alert("Please check loan first");
@@ -40,13 +37,11 @@ function send() {
 
   const formData = new URLSearchParams();
   formData.append("name", name);
-  formData.append("phone", phone);
   formData.append("amount", amount);
   formData.append("duration", duration);
   formData.append("total", total);
-  formData.append("date", date);
 
-  fetch("https://script.google.com/macros/s/AKfycbyvYkI3TgFwr6MJ1CBeaRWZVU7Nw8272FoFsD3TiuFtwf_cX9zLaksaKLeamZAca1ZFug/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwzKhicpEOAbw6dybuX7LhmfM3Wrvi1f3Q23nRoZm9vMNjXc5AB86Tk7hgFeV3kKWdiaA/exec", {
     method: "POST",
     body: formData
   })
