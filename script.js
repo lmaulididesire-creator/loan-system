@@ -41,7 +41,7 @@ function send() {
   formData.append("duration", duration);
   formData.append("total", total);
 
-  fetch("https://script.google.com/macros/s/AKfycbwzKhicpEOAbw6dybuX7LhmfM3Wrvi1f3Q23nRoZm9vMNjXc5AB86Tk7hgFeV3kKWdiaA/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbxrTPFqGUDkj7kPo0-ZtJlOn4tEKJTnfTH8vCB_QOtKjtAoD9YmBAa31SO6AlnAsDgr-w/exec", {
     method: "POST",
     body: formData
   })
