@@ -28,7 +28,7 @@ function login() {
 }
 
 function loadData() {
-  fetch("https://script.google.com/macros/s/AKfycbxrTPFqGUDkj7kPo0-ZtJlOn4tEKJTnfTH8vCB_QOtKjtAoD9YmBAa31SO6AlnAsDgr-w/exec")
+  fetch("https://script.google.com/macros/s/AKfycbwdtiZD0Co2fPiffIglcGkyFRsUcDQKcIXgIlX9bxA4rRciGdO77MVrhjHDDFeQIwdv0A/exec")
   .then(res => res.json())
   .then(data => {
     let totalGiven = 0;
@@ -64,7 +64,7 @@ function loadData() {
 }
 
 function pay(row) {
-  fetch("https://script.google.com/macros/s/AKfycbxrTPFqGUDkj7kPo0-ZtJlOn4tEKJTnfTH8vCB_QOtKjtAoD9YmBAa31SO6AlnAsDgr-w/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbwdtiZD0Co2fPiffIglcGkyFRsUcDQKcIXgIlX9bxA4rRciGdO77MVrhjHDDFeQIwdv0A/exec", {
     method: "POST",
     body: new URLSearchParams({ action: "pay", row: row })
   }).then(() => location.reload());
