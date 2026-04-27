@@ -18,29 +18,30 @@ function calculate() {
 }
 
 function send() {
-  let data = {
-    name: document.getElementById("name").value,
-    phone: document.getElementById("phone").value,
-    amount: document.getElementById("amount").value,
-    duration: document.getElementById("duration").value,
-    total: total,
-    date: document.getElementById("date").value
-  };
+  let formData = new URLSearchParams();
+  formData.append("name", document.getElementById("name").value);
+  formData.append("phone", document.getElementById("phone").value);
+  formData.append("amount", document.getElementById("amount").value);
+  formData.append("duration", document.getElementById("duration").value);
+  formData.append("total", total);
+  formData.append("date", document.getElementById("date").value);
 
-  if (!data.name || !data.phone || !data.amount || !data.duration || !data.date) {
-    alert("Fill all fields");
-    return;
-  }
-
-  fetch("https://script.google.com/macros/s/AKfycbztGljfitknGcvJlWpwRalNj1F0korOPNxEqwA8Yvx4MvjsbrPI3Pfi59Jcd5AaspHyTw/exec", {
+  fetch("https://script.google.com/macros/s/AKfycbw31oTNwor4zaQjNiuEvDGAHcG0H_e21eJtBzYGIGF6KyLGCI4G-qVTdW7uzzs2WLOZSA/exec", {
     method: "POST",
-    body: JSON.stringify(data)
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: formData.toString()
   })
   .then(res => res.text())
   .then(data => {
-    alert("Request sent successfully!");
+    if (data === "OK") {
+      alert("Request sent successfully!");
+    } else {
+      alert("Server error: " + data);
+    }
   })
-  .catch(() => {
+  .catch(err => {
     alert("Error sending request");
   });
 }
